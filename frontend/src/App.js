@@ -1,19 +1,36 @@
-import { BrowserRouter, Link, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import Navbar from 'react-bootstrap/Navbar';
+import Container from 'react-bootstrap/Container';
+import { LinkContainer } from 'react-router-bootstrap';
+
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="d-flex flex-column site-container">
         <header>
-          <Link to="/">amazona</Link>
+          <Navbar bg="dark" variant="dark">
+            <Container>
+              <LinkContainer to="/">
+                <Navbar.Brand>Amazona</Navbar.Brand>
+              </LinkContainer>
+            </Container>
+          </Navbar>
         </header>
         <main>
-          <Routes>
-            <Route exact path="/product/:slug" element={<ProductScreen />} />
-            <Route exact path="/" element={<HomeScreen />} />
-          </Routes>
+          <Container>
+            <Routes>
+              <Route exact path="/product/:slug" element={<ProductScreen />} />
+              <Route exact path="/" element={<HomeScreen />} />
+            </Routes>
+          </Container>
         </main>
+        <footer>
+          <Navbar bg="dark" variant="dark">
+            <div className="text-center">All Right Reseved to Mutsho</div>
+          </Navbar>
+        </footer>
       </div>
     </BrowserRouter>
   );
