@@ -27,9 +27,7 @@ function App() {
           </Container>
         </main>
         <footer>
-          <Navbar bg="dark" variant="dark">
-            <div className="text-center">All Right Reseved to Mutsho</div>
-          </Navbar>
+          <div className="text-center">All Right Reseved to Mutsho</div>
         </footer>
       </div>
     </BrowserRouter>
