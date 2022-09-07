@@ -9,6 +9,9 @@ import Badge from 'react-bootstrap/Badge';
 import Rating from '../component/Rating';
 import Button from 'react-bootstrap/Button';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../component/LoadingBox';
+import MessageBox from '../component/MessageBox';
+import { getError } from '../utils';
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -40,16 +43,16 @@ function ProductScreen() {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
     };
     fetchData();
   }, [slug]);
 
   return loading ? (
-    <div>Loading....</div>
+    <LoadingBox />
   ) : error ? (
-    <div>{error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <div>
       <Row>
@@ -107,6 +110,15 @@ function ProductScreen() {
                   <ListGroup.Item>
                     <div className="d-grid">
                       <Button variant="primary">Add to Cart</Button>
+                    </div>
+                  </ListGroup.Item>
+                )}
+                {product.countInStock < 0 && (
+                  <ListGroup.Item>
+                    <div className="d-grid">
+                      <Button variant="primary" disabled>
+                        Add to Cart
+                      </Button>
                     </div>
                   </ListGroup.Item>
                 )}
